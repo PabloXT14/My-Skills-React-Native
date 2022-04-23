@@ -1,12 +1,12 @@
 import React from 'react';
-import { 
+import {
     TouchableOpacity,
     Text,
     StyleSheet
 } from 'react-native';
 
 
-export function SkillCard({skill}) {
+export function SkillCard({ skill }) {
     return (
         <TouchableOpacity style={styles.buttonSkill} >
             <Text style={styles.textSkill}>
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     },
     textSkill: {
         color: '#FFF',
-        fontSize: 22,
+        fontSize: 20,
         fontWeight: 'bold'
     }
 })

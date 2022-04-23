@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { 
+import {
     View,
-    Text, 
-    StyleSheet, 
-    SafeAreaView, 
-    TextInput, 
+    Text,
+    StyleSheet,
+    SafeAreaView,
+    TextInput,
     Platform,
-    TouchableOpacity
+    TouchableOpacity,
+    ScrollView,
+    FlatList
 } from 'react-native';
 import { Button } from "../components/Button";
 import { SkillCard } from "../components/SkillCard";
@@ -31,24 +33,28 @@ export function Home() {
         <View style={styles.container}>
             <Text style={styles.title}>Welcome, Pablo</Text>
 
-            <TextInput 
-                style={styles.input} 
+            <TextInput
+                style={styles.input}
                 placeholder="New skill"
                 placeholderTextColor="#555"
                 onChangeText={setNewSkill}
             />
 
-            <Button onPress={handleAddNewSkill}/>
+            <Button onPress={handleAddNewSkill} />
 
-            <Text style={[styles.title, {marginVertical: 30}]}>
+            <Text style={[styles.title, { marginVertical: 20 }]}>
                 My Skills
             </Text>
 
+            <FlatList
+                data={mySkills}//dados ou lista a ser carregado
+                keyExtractor={(item, index) => index}// key de cada item, para o React não reclamar
+                renderItem={({ item }) => (// como o item sera renderizado
+                    <SkillCard skill={item} />
+                )}
+                showsVerticalScrollIndicator={false}
+            />
 
-            {mySkills.map((skill, index) => (
-                    <SkillCard key={index}  skill={skill}/>
-                ))
-            }
 
         </View>
     );
@@ -59,7 +65,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#121015',
         paddingHorizontal: 20,
-        paddingVertical: 50
+        paddingVertical: 40
     },
     title: {
         color: '#FFF',
