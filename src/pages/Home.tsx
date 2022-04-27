@@ -20,17 +20,35 @@ import { SkillCard } from "../components/SkillCard";
   return: deve retornar somente um elemento (Dica: Fragment <></>)
 */
 
+
+interface SkillData {
+    id: string;
+    name: string;
+    date?: Date;
+}
+
 export function Home() {
     const [newSkill, setNewSkill] = useState('');
-    const [mySkills, setMySkills] = useState([])
+    const [mySkills, setMySkills] = useState<SkillData[]>([]);
     const [gretting, setGretting] = useState('');
 
 
     // padrão funções com handle (lidar com ações do usuário)
     function handleAddNewSkill() {
-        setMySkills(oldState => [...oldState, newSkill]);// outra maneira de passar no valor para array de state
+        const data = {
+            id: String(new Date().getTime()),
+            name: newSkill
+        }
+
+        setMySkills(oldState => [...oldState, data]);// outra maneira de passar no valor para array de state
+        // setNewSkill('');
     }
 
+    function handleRemoveSkill(id: string) {
+        setMySkills(oldState => oldState.filter(
+            skill => skill.id !== id
+        ));
+    }
 
     // Utilizando useEffect
     useEffect(() => {
@@ -59,7 +77,10 @@ export function Home() {
                 onChangeText={setNewSkill}
             />
 
-            <Button onPress={handleAddNewSkill} />
+            <Button 
+                title="Add"
+                onPress={() => newSkill.trim() !== '' ? handleAddNewSkill() : ''} 
+            />
 
             <Text style={[styles.title, { marginVertical: 20 }]}>
                 My Skills
@@ -67,9 +88,12 @@ export function Home() {
 
             <FlatList
                 data={mySkills}//dados ou lista a ser carregado
-                keyExtractor={(item, index) => index}// key de cada item, para o React não reclamar
+                keyExtractor={(item) => item.id}// key de cada item, para o React não reclamar
                 renderItem={({ item }) => (// como o item sera renderizado
-                    <SkillCard skill={item} />
+                    <SkillCard 
+                        skill={item.name} 
+                        handleRemoveCard={() => handleRemoveSkill(item.id)}
+                    />
                 )}
                 showsVerticalScrollIndicator={false}
             />
@@ -84,7 +108,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#121015',
         paddingHorizontal: 20,
-        paddingVertical: 40
+        paddingVertical: 30
     },
     title: {
         color: '#FFF',
