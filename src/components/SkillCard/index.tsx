@@ -5,6 +5,8 @@ import {
     Text,
     StyleSheet
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 interface SkillCardProps extends TouchableOpacityProps {
     skill: string;
@@ -24,7 +26,7 @@ export function SkillCard({ skill, handleRemoveCard, ...rest } : SkillCardProps)
                 style={styles.iconRemove}
                 onPress={() => handleRemoveCard()}
             >
-                X
+                <Icon name="close" size={18} color="#FFF" />
             </Text>
         </TouchableOpacity>
     );
@@ -47,8 +49,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     iconRemove: {
-        color: '#FFF',
-        fontSize: 20,
-        fontWeight: 'bold'
+        backgroundColor: '#A370F7',
+        borderRadius: 100,
+        padding: 5,
+        alignItems: 'center',
+        justifyContent: 'center'
     }
 })

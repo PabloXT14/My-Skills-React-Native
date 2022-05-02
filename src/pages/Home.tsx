@@ -41,7 +41,7 @@ export function Home() {
         }
 
         setMySkills(oldState => [...oldState, data]);// outra maneira de passar no valor para array de state
-        // setNewSkill('');
+        setNewSkill('');
     }
 
     function handleRemoveSkill(id: string) {
@@ -75,6 +75,7 @@ export function Home() {
                 placeholder="New skill"
                 placeholderTextColor="#555"
                 onChangeText={setNewSkill}
+                value={newSkill}
             />
 
             <Button 
