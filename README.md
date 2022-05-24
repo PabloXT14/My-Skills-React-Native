@@ -1,1 +1,2 @@
-# My-Skills-React-Native
+# 🚧 My-Skills-React-Native (README em andamento)
+
